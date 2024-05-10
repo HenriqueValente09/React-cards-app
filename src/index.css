@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.input-shadow {
+  box-shadow: 10px 10px 30px rgb(216, 216, 216);
+}
+
+@keyframes showCard {
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+.listCard {
+  bottom: -100%;
+  position: relative;
+  opacity: 0;
+  animation: showCard 1s ease forwards;
+}
