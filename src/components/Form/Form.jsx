@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import FormButton from "../Button/FormButton";
 import Dropdown from "../Inputs/Dropdown";
 import TextInput from "../Inputs/TextInput";
@@ -40,15 +40,13 @@ function reducer(state, action) {
   if (action.type === "update_id") {
     return {
       ...state,
-      id: action.id
+      id: action.payload
     };
   }
   throw Error('Unknown action.');
 }
 
 const Form = (props) => {
-  const classes = ["Warrior", "Mage", "Brawler", "Assassin", "Archer"];
-
   const [state, dispatch] = useReducer(reducer, {
     id: "",
     name: "",
@@ -60,10 +58,14 @@ const Form = (props) => {
 
   const onSave = (e) => {
     e.preventDefault();
-    dispatch({ type: "update_id", id: uuid() })
-    console.log(state)
-    props.sendCards(state)
+    dispatch({ type: "update_id", payload: uuid() })
   };
+
+  useEffect(() => {
+    if (state.id !== "") {
+      props.sendCards(state);
+    }
+  }, [state.id]);
 
   return (
     <section className="w-full">
@@ -96,7 +98,7 @@ const Form = (props) => {
         />
         <Dropdown
           value={state.class}
-          items={classes}
+          items={props.classes}
           label="Class"
           onChange={e => dispatch({ type: "update_class", payload: e })}
         ></Dropdown>

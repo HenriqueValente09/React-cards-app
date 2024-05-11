@@ -1,47 +1,18 @@
 import React from "react";
 
 const CardList = (props) => {
-  const cards = props.cards;
-  const classes = [];
-  cards.forEach((card) => {
-    if (!classes.includes(card.class)) {
-      classes.push(card.class);
-    }
-  });
-  const cardClasses = [];
-  classes.forEach((cardClass, index) => {
-    cardClasses.push({
-      class: cardClass,
-      cards: []
-    })
-    cards.forEach((card) => {
-      if (cardClass === card.class) {
-        cardClasses[index].cards.push(card)
-      }
-    })
-    cardClasses.sort((a, b) => {
-      if (a.class > b.class) {
-        return 1;
-      }
-      if (a.class < b.class) {
-        return -1;
-      }
-      return 0;
-    });
-  })
-
   return (
     <div>
-      {cardClasses.map((classGroup, index) => {
+      {props.classes.map((classGroup, index) => {
         return (
-          <div
-            value={classGroup.class}
+          (classGroup.cards.length > 0) && <div
+            value={classGroup.name}
             key={index}
             style={{perspective: "800px"}}
             className={`mx-auto mb-2 w-[95%] bg-[black] flex justify-start p-[20px] flex-wrap relative overflow-clip`}
           >
             <h1 className="w-[95%] mx-auto bg-[black] text-center text-[white] text-[30px]">
-              {classGroup.class}
+              {classGroup.name}
             </h1>
             {classGroup.cards.map((card, index) => {
                 return (

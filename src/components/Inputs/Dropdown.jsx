@@ -9,8 +9,8 @@ const Dropdown = (props) => {
         <div className="w-full mb-5">
             <label className="mb-2 block">{props.label}</label>
             <select {...props} onChange={updateValue} name="" id="" className="border-0 input-shadow h-10 px-3 w-full">
-                {props.items.map(item => {
-                    return <option value={item} key={item}>{item}</option>
+                {props.items.map((item, index) => {
+                    return <option value={item.name} key={index}>{item.name}</option>
                 })}
             </select>
         </div>
