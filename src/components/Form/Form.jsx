@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import FormButton from "../Button/FormButton";
 import Dropdown from "../Inputs/Dropdown";
 import TextInput from "../Inputs/TextInput";
@@ -53,8 +53,14 @@ const Form = (props) => {
     region: "",
     image: "",
     class: "Warrior",
-    color: "red"
+    color: "red",
   });
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
 
   const onSave = (e) => {
     e.preventDefault();
@@ -89,19 +95,41 @@ const Form = (props) => {
           type="text"
           onChange={e => dispatch({ type: "update_region", payload: e })}
         />
-        <ImageInput
+        {/* <ImageInput
           required
           value={state.image}
           label="Imagem"
           accept=".png, .jpg"
           onChange={(img) => dispatch({ type: "update_image", payload: img })}
+        /> */}
+        <TextInput
+          required
+          value={state.image}
+          onChange={e => dispatch({ type: "update_image", payload: e })}
+          label="Imagem"
+          placeholder="Imagem"
+          type="text"
         />
-        <Dropdown
+        {/* <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckbox}
+        /> */}
+        {!isChecked ? <Dropdown
           value={state.class}
           items={props.classes}
-          label="Class"
+          label="Nota"
           onChange={e => dispatch({ type: "update_class", payload: e })}
-        ></Dropdown>
+        ></Dropdown>:
+        <TextInput
+          required
+          value={state.class}
+          onChange={e => dispatch({ type: "update_class", payload: e })}
+          label="Classe"
+          placeholder="Classe"
+          type="text"
+        />
+        }
         <ColorInput label="Fundo" onChange={e => dispatch({ type: "update_color", payload: e })}/>
         <FormButton>Criar card</FormButton>
       </form>

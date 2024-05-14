@@ -30,8 +30,8 @@ const CardList = (props) => {
                       <img src={card.image} alt="" className="aspect-video" />
                       <button
                         className="w-[10px] h-[10px] bg-white"
-                        onClick={() => props.removeCard(card.id)}
-                      ></button>
+                        onClick={() => props.removeCard(card, index)}
+                      >X</button>
                     </div>
                   </div>
                 );

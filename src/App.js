@@ -15,25 +15,25 @@ function App() {
     })
   }, [])
 
-  const showClasses = () => {
-    console.log(cardClasses)
-  }
-
   const getCards = (card) => {
+    if (!(cardClasses.find(e => e.name === card.class))) {
+      setCardClasses((prev) => [...prev, {name: card.class, cards: []}])
+    }
     const updatedClasses = cardClasses
     updatedClasses[updatedClasses.indexOf(updatedClasses.find(item => item.name === card.class))].cards.push(card)
     setCardClasses([...updatedClasses])
   }
 
-  const removeCard = (id) => {
-    // const found = cards.find((element) => element.id === id);
-    // setCards(cards.toSpliced(cards.indexOf(found), 1))
+  const removeCard = (card, index) => {
+    const updatedClasses = cardClasses
+    updatedClasses[updatedClasses.indexOf(updatedClasses.find(item => item.name === card.class))].cards.splice(index, 1)
+    setCardClasses([...updatedClasses])
   }
 
   return (
     <div className="App">
     <Banner />
-    <button onClick={showClasses} className='w-[100px] h-[100px] '></button>
+    <button className='w-[100px] h-[100px] '></button>
     <Form sendCards={getCards} classes={cardClasses}/>
     <CardList classes={cardClasses} removeCard={removeCard}/>
     </div>
